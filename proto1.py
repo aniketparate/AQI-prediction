@@ -1,8 +1,17 @@
 import cv2
+from cv2 import contours
 import numpy as np
 
 # Load the .bmp image
 image = cv2.imread('2000_LST.bmp', cv2.IMREAD_COLOR)
+
+# Define your color mapping scheme
+def map_rgb_to_temperature(r, g, b):
+    # Implement your logic to map RGB values to temperature
+    # based on your specific color mapping scheme
+    temperature = 0.0
+    # Your mapping implementation goes here
+    return temperature
 
 # Check if the image was loaded successfully
 if image is not None:
@@ -29,9 +38,3 @@ else:
     print('Failed to load the image.')
 
 
-def map_rgb_to_temperature(r, g, b):
-    # Implement your logic to map RGB values to temperature
-    # based on your specific color mapping scheme
-    temperature = 0.0
-    # Your mapping implementation goes here
-    return temperature
