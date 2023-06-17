@@ -2,7 +2,7 @@ import csv
 import cv2
 
 # Load the BMP image
-image_path = '2000_LST.bmp'
+image_path = './2000_LST.bmp'
 image = cv2.imread(image_path)
 
 # Convert the image to grayscale
