@@ -17,14 +17,14 @@ def calculate_temperature(r,g,b):
     return temperature
 
 def map_temperature_to_color(temperature):
-    hot_color = (0, 0, 255)      # Red
-    cold_color = (0, 255, 0)     # Green
-    moderate_color = (255, 165, 0)  # Orange
+    hot_color = (255, 0, 0)      # Red
+    cold_color = (0, 0, 255)     # Blue
+    moderate_color = (255, 255, 0)  # Yellow
 
     # Map temperature to color based on temperature ranges
-    if temperature >= 80.0:
+    if temperature >= 50.0:
         return hot_color
-    elif temperature <= 40.0:
+    elif temperature <= 20.0:
         return cold_color
     else:
         return moderate_color
@@ -36,9 +36,9 @@ if image is not None:
     _, threshold = cv2.threshold(greyscale, 0, 255, cv2.THRESH_BINARY)
     contours, _ = cv2.findContours(threshold, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     temperature_data = []
-    for coutour in contours:
-        for point in coutour:
-
+    for contour in contours:
+        for point in contour:
+            # print('*')
             pixel = image[point[0][1], point[0][0]]
             r, g, b = pixel[2], pixel[1], pixel[0]
 
@@ -46,21 +46,20 @@ if image is not None:
             temperature_data.append(temperature)
 
 
+    # print(temperature_data)
+
     temperature_map = np.zeros_like(image, dtype=np.uint8)
-    for contour in contours:
-        avg_temperature = np.mean(temperature_data)
-        color = map_temperature_to_color(avg_temperature)
-        cv2.drawContours(temperature_map, [contour], -1, color, thickness=cv2.FILLED)
+    for c, t in zip(contours, temperature_data):
+        color = map_temperature_to_color(t)
+        cv2.drawContours(temperature_map, [c], -1, color, thickness=cv2.FILLED)
 
-
-    print(temperature_data)
 
     # image_with_contours = cv2.drawContours(image.copy(), contours, -1, (0, 0, 255), 2)
     cv2.imshow('Temperature Map', temperature_map)
     cv2.namedWindow('Temperature Map', cv2.WINDOW_NORMAL)
 
-    cv2.imshow('Image with Contours', image)
-    cv2.namedWindow('Image with Contours', cv2.WINDOW_NORMAL)
+    # cv2.imshow('Image with Contours', image)
+    # cv2.namedWindow('Image with Contours', cv2.WINDOW_NORMAL)
     
     cv2.waitKey(0)
     cv2.destroyAllWindows()
