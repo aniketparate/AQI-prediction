@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 # Read the CSV file containing pixel color values
-csv_path = '2000_LST.csv'
+csv_path = 'data/csv/2010_predict.csv'
 
 rows = []
 with open(csv_path, 'r') as file:
