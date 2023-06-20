@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 # Read the CSV file containing pixel color values
-csv_path = '2000_LST.csv'
+csv_path = 'data/csv/2010_predict.csv'
 
 rows = []
 with open(csv_path, 'r') as file:
@@ -25,6 +25,8 @@ for row in rows:
     reconstructed_image[r, c] = pixel_value
 
 # Display the reconstructed image
-cv2.imshow("Reconstructed Image", reconstructed_image)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+output_image_path = 'data/img/2010_predict.bmp'
+cv2.imwrite(output_image_path, reconstructed_image)
+# cv2.imshow("Reconstructed Image", reconstructed_image)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
