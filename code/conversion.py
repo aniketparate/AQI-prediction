@@ -10,6 +10,9 @@ def find_closest_rgb(rgb, rgb_values):
     closest_rgb = None
     closest_distance = float('inf')
     for rgb_value in rgb_values:
+        if rgb_value == [-1, -1, -1]:
+            closest_rgb = [-1, -1, -1]
+            return closest_rgb
         distance = calculate_distance(rgb, rgb_value)
         if distance < closest_distance:
             closest_distance = distance
